@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>little-arena//Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            /* font-family: 'Arial', sans-serif; */
+            text-align: center;
+            background-color: black;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0ff;
+        }
+
+        h1 {
+            color: rgb(248, 251, 251);
+        }
+
+        #player-input, #board, #result, button {
+            background-color: #000;
+            border: none;
+            color: #0ff;
+            padding: 10px;
+            margin: 5px;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;
+            cursor: pointer;
+        }
+        .board{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 5px;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: #000; /* Cell background color */
+        }
+
+        .cell:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="little-arena">
+            <ul><li><a href="index.html">Little Arena></a></li></ul>
+        </div>
+        <ul>
+            <li><a href="events.html">Events</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li><a href="about.html">About</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <li><a href="contact.html">Contact</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </ul>
+    </nav>
+   
+    <div class="container">
+        <br><br>
+    <h1>Tic Tac Toe</h1><br>
+    <div id="player-input">
+        <label for="playerXName">Enter Player X Name:</label>
+        <input type="text" id="playerXName" placeholder="Player X Name">
+            <br><br>
+        <label for="playerOName">Enter Player O Name:</label>
+        <input type="text" id="playerOName" placeholder="Player O Name">
+        <br><br>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+    <div id="board" class="board" style="display: none;">
+        <div class="cell" onclick="makeMove(0)"></div>
+        <div class="cell" onclick="makeMove(1)"></div>
+        <div class="cell" onclick="makeMove(2)"></div>
+        <div class="cell" onclick="makeMove(3)"></div>
+        <div class="cell" onclick="makeMove(4)"></div>
+        <div class="cell" onclick="makeMove(5)"></div>
+        <div class="cell" onclick="makeMove(6)"></div>
+        <div class="cell" onclick="makeMove(7)"></div>
+        <div class="cell" onclick="makeMove(8)"></div>
+    </div>
+    <div id="result" class="result"></div>
+    <button onclick="resetGame()">Reset Game</button>
+</div>
+
+<script>
+    var playerXName = '';
+    var playerOName = '';
+    var currentPlayer = 'X';
+    var gameBoard = ['', '', '', '', '', '', '', '', ''];
+    var gameActive = false;
+
+    function startGame() {
+        playerXName = document.getElementById('playerXName').value;
+        playerOName = document.getElementById('playerOName').value;
+
+        if (playerXName.trim() !== '' && playerOName.trim() !== '') {
+            document.getElementById('player-input').style.display = 'none';
+            document.getElementById('board').style.display = 'grid';
+            gameActive = true;
+        } else {
+            alert('Please enter valid names for both players.');
+        }
+    }
+
+    function makeMove(index) {
+        if (gameBoard[index] === '' && gameActive) {
+            gameBoard[index] = currentPlayer;
+            document.getElementsByClassName('cell')[index].textContent = currentPlayer;
+
+            if (checkWinner()) {
+                document.getElementById('result').textContent = `${currentPlayer === 'X' ? playerXName : playerOName} wins!`;
+                gameActive = false;
+            } else if (gameBoard.every(cell => cell !== '')) {
+                document.getElementById('result').textContent = 'It\'s a draw!';
+                gameActive = false;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+    }
+
+    function checkWinner() {
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ];
+
+        for (const combination of winningCombinations) {
+            const [a, b, c] = combination;
+            if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function resetGame() {
+        currentPlayer = 'X';
+        gameBoard = ['', '', '', '', '', '', '', '', ''];
+        gameActive = true;
+
+        // Clear the board and result display
+        const cells = document.getElementsByClassName('cell');
+        for (const cell of cells) {
+            cell.textContent = '';
+        }
+
+        document.getElementById('result').textContent = '';
+
+        // Show the player input section again for the next game
+        document.getElementById('player-input').style.display = 'block';
+        document.getElementById('board').style.display = 'none';
+    }
+</script>
+<br><br><br><br>
+<div>
+
+    <h2 class="title">Reach out to us</h2>
+    <div class="contact" id="contact" style="padding-bottom: 10px !important;">
+    <div class="contact-list contact-address"  >
+      <h5><span><i class=""></i></span>Address</h5>
+      <p>Shaitan Gali, </p>
+      <p>Khatarnak Mahal,Ander Nagar </p>
+      <p>Aur Shamshan ke saamne </p>
+    </div>
+    <div class="contact-list">
+      <h5><span><i class=""></i></span>Receive weekly update email</h5>
+      <div class="email-contact">
+        <input placeholder="Email"  type="email" style="margin: 8px 0px !important;"/>
+        
+        <button class="" style="width: 100px; padding:3px 10px !important">Subscribe</button>
+      </div>
+
+    </div>
+    <div class="contact-list" >
+      <br>
+      <h5><span><i class=""></i></span>Phone</h5>
+      <p>987-654-321</p>
+      <p>123-456-789</p>
+    </div>
+    </div>
+</div>
+</body>
+</html>

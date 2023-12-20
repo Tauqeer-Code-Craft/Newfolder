@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>little-arena//Rock-Paper-Scissor</title>  
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="little-arena">
+            <ul><li><a href="index.html">Little Arena></a></li></ul>
+        </div>
+        <ul>
+            <li><a href="events.html">Events</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li><a href="about.html">About</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li><a href="contact.html">Contact</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </ul>
+    </nav>
+
+    <style> 
+    p{
+        color: antiquewhite;
+        
+    }
+    button {
+        font-size: 9px;
+        padding: 10px 20px;
+        
+    }</style>  
+</head>
+<body>
+    <br><br><br>
+    
+    <h1><center>Welcome to the Game</center></h1><br><br>
+    <center><h2 style="font-size:165%;"><i> Your Name</i> : <input type="text" id="username"></h2></center>
+    
+    <p style="color: whitesmoke"><i><center> Choose your move &nbsp;&nbsp;&nbsp;︻╦╤─ ҉ &nbsp;- - </i></p>
+        <br>
+        <center><button id="rock">ROCK</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="paper">PAPER</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="scissors">SCISSOR</button> </center>
+        <br><br><p id="result"></p> 
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
+    <script>
+            const buttons = document.querySelectorAll('button');
+            const resultText = document.getElementById('result');
+            const usernameInput = document.getElementById('username');
+    
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (usernameInput.value.trim() === '') {
+                        alert('Please enter your name before making a choice.');
+                        return;
+                    }
+                    const playerSelection = button.id;
+                    const computerSelection = computerPlay();
+                    const roundResult = playRound(playerSelection, computerSelection);
+                    resultText.textContent = roundResult;
+                });
+            });
+    
+            function computerPlay() {
+                const choices = ['rock', 'paper', 'scissors'];
+                const randomIndex = Math.floor(Math.random() * choices.length);
+                return choices[randomIndex];
+            }
+    
+            function playRound(playerSelection, computerSelection) {
+            if (playerSelection === computerSelection) {
+                return "It's a tie!";
+            } else if (
+                (playerSelection === 'rock' && computerSelection === 'scissors') ||
+                (playerSelection === 'paper' && computerSelection === 'rock') ||
+                (playerSelection === 'scissors' && computerSelection === 'paper')
+            ) {
+                return `${usernameInput.value} wins! ${playerSelection} beats ${computerSelection}.`;
+            } else {
+                return `Computer wins! ${computerSelection} beats ${playerSelection}.`;
+            }
+        }
+    </script>
+
+
+<div>
+
+    <h2 class="title">Reach out to us</h2>
+    <div class="contact" id="contact" style="padding-bottom: 10px !important;">
+    <div class="contact-list contact-address"  >
+      <h5><span><i class=""></i></span>Address</h5>
+      <p>Shaitan Gali, </p>
+      <p>Khatarnak Mahal,Ander Nagar </p>
+      <p>Aur Shamshan ke saamne </p>
+    </div>
+    <div class="contact-list">
+      <h5><span><i class=""></i></span>Receive weekly update email</h5>
+      <div class="email-contact">
+        <input placeholder="Email"  type="email" style="margin: 8px 0px !important;"/>
+        
+        <button class="" style="width: 100px; padding:3px 10px !important">Subscribe</button>
+      </div>
+
+    </div>
+    <div class="contact-list" >
+      <br>
+      <h5><span><i class=""></i></span>Phone</h5>
+      <p>987-654-321</p>
+      <p>123-456-789</p>
+    </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+</body>
+</html>
